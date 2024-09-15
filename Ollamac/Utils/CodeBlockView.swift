@@ -63,7 +63,7 @@ struct CodeBlockView: View {
     }
 }
 
-extension CodeBlockConfiguration: @retroactive Hashable {
+extension CodeBlockConfiguration: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(language)
         hasher.combine(content)

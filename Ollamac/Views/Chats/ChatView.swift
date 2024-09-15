@@ -104,7 +104,7 @@ struct ChatView: View {
                 }
             }
         }
-        .navigationTitle(chatViewModel.activeChat?.name ?? "Ollamac")
+        .navigationTitle(chatViewModel.activeChat?.name ?? "MILLI")
         .navigationSubtitle(chatViewModel.activeChat?.model ?? "")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -119,7 +119,7 @@ struct ChatView: View {
         }
     }
     
-    private func onActiveChatChanged() {
+    @MainActor private func onActiveChatChanged() {
         self.prompt = ""
         
         if let activeChat = chatViewModel.activeChat, let host = activeChat.host, let baseURL = URL(string: host) {
@@ -133,7 +133,7 @@ struct ChatView: View {
         NSPasteboard.general.setString(content, forType: .string)
     }
     
-    private func generateAction() {
+    @MainActor private func generateAction() {
         guard let activeChat = chatViewModel.activeChat, !activeChat.model.isEmpty, chatViewModel.isHostReachable else { return }
         
         if messageViewModel.loading == .generate {
@@ -147,7 +147,7 @@ struct ChatView: View {
         prompt = ""
     }
     
-    private func regenerateAction() {
+    @MainActor private func regenerateAction() {
         guard let activeChat = chatViewModel.activeChat, !activeChat.model.isEmpty, chatViewModel.isHostReachable else { return }
         
         if messageViewModel.loading == .generate {
@@ -161,7 +161,7 @@ struct ChatView: View {
         prompt = ""
     }
     
-    private func scrollToBottom(proxy: ScrollViewProxy) {
+    @MainActor private func scrollToBottom(proxy: ScrollViewProxy) {
         guard messageViewModel.messages.count > 0 else { return }
         guard let lastMessage = messageViewModel.messages.last else { return }
         

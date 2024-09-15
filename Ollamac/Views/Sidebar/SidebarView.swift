@@ -13,7 +13,7 @@ struct SidebarView: View {
     @Environment(ChatViewModel.self) private var chatViewModel
     @Environment(MessageViewModel.self) private var messageViewModel
     
-    private var todayChats: [Chat] {
+    @MainActor private var todayChats: [Chat] {
         let calendar = Calendar.current
         
         return chatViewModel.chats
@@ -21,7 +21,7 @@ struct SidebarView: View {
             .sorted { $0.modifiedAt > $1.modifiedAt }
     }
     
-    private var yesterdayChats: [Chat] {
+    @MainActor private var yesterdayChats: [Chat] {
         let calendar = Calendar.current
         
         return chatViewModel.chats
@@ -29,7 +29,7 @@ struct SidebarView: View {
             .sorted { $0.modifiedAt > $1.modifiedAt }
     }
     
-    private var previousDaysChats: [Chat] {
+    @MainActor private var previousDaysChats: [Chat] {
         let calendar = Calendar.current
         let twoDaysAgo = calendar.date(byAdding: .day, value: -2, to: Date()) ?? Date()
         
@@ -38,7 +38,7 @@ struct SidebarView: View {
             .sorted { $0.modifiedAt > $1.modifiedAt }
     }
     
-    private var deleteConfirmationTitle: String {
+    @MainActor private var deleteConfirmationTitle: String {
         if chatViewModel.selectedChats.count > 1 {
             return "Delete Chats"
         }
@@ -46,7 +46,7 @@ struct SidebarView: View {
         return "Delete Chat"
     }
     
-    private var deleteConfirmationMessage: String {
+    @MainActor private var deleteConfirmationMessage: String {
         if chatViewModel.selectedChats.count > 1 {
             return "Are you sure you want to delete these chats?"
         }

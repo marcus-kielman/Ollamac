@@ -10,7 +10,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Chat: Identifiable {
+final class Chat: Identifiable, Hashable {
     @Attribute(.unique) var id: UUID = UUID()
     
     var name: String

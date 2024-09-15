@@ -68,7 +68,7 @@ struct OllamacApp: App {
             
             CommandGroup(replacing: .help) {
                 if let helpURL = AppInfo.value(for: "HELP_URL"), let url = URL(string: helpURL) {
-                    Link("Ollamac Help", destination: url)
+                    Link("MILLI Help", destination: url)
                 }
             }
         }
